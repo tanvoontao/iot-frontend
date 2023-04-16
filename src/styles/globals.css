@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    transition: all 0.2s ease-in-out;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --blue1: #00A6F1;
+    --blue2: #007DD7;
+    --blue3: #005AC1;
+    --blue4: #003D95;
+
+    --black1: #000000;
+    --gray1: #E5E5E5;
+    --white1: #FFFFFF;
+
+    /* 4px */
+    --border-radius: 0.25rem;
+}
