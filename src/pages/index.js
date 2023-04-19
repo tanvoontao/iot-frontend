@@ -44,6 +44,8 @@ import HealthRecord from '@/components/Section/HealthRecord';
 import TemperatureChart from '@/components/Section/TemperatureChart';
 import HeartRateChart from '@/components/Section/HeartRateChart';
 
+import UserLayout from '@/components/Layout/UserLayout';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -135,17 +137,7 @@ export default function Home() {
     <>
       <Metatags />
 
-      <NavBar />
-      <Container maxWidth="lg">
-
-        <br />
-        <br />
-
-        <DarkModeBtn />
-
-        <br />
-        <br />
-
+      <UserLayout>
         <Grid container spacing={4}>
           <Grid item sm={6} xs={12}>
             <TemperatureChart />
@@ -160,8 +152,7 @@ export default function Home() {
 
         <HealthRecord />
 
-      </Container>
-      <Footer />
+      </UserLayout>
     </>
   );
 }

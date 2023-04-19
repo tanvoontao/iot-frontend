@@ -12,7 +12,7 @@ function NavLinks() {
     <>
       {links.map((link) => (
         <div key={link.id}>
-          <div className="px-3 lg:curosr-pointer group">
+          <div className="px-3 lg:curosr-pointer group  text-white">
             <h1 className="py-7 flex justify-between items-center lg:pr-0 pr-5 group" onClick={() => (isExpanded !== link.title ? setIsExpanded(link.title) : setIsExpanded(''))} key={link.url}>
               <Link href={link.url}>{link.title}</Link>
               {link.title === 'Blogs' && <img className={`w-5 h-3 m-1 inline lg:hidden ${isExpanded === link.title ? 'rotate-180' : ''}`} src="/images/arrow_white.png" alt="arrow" />}
@@ -23,7 +23,7 @@ function NavLinks() {
                 <div className="bg-white1">
                   {
                     link.sublinks.map((sublink) => (
-                      <div className="p-3 text-black text-center border-solid border-2 border-blue2" key={sublink.id}>
+                      <div className="p-3 text-white text-center border-solid border-2 border-blue2" key={sublink.id}>
                         <h1 className="my-3" key={sublink.url}><Link href={sublink.url}>{sublink.title}</Link></h1>
                       </div>
                     ))
@@ -36,7 +36,7 @@ function NavLinks() {
           <div className={`${isExpanded === link.title ? 'lg:hidden' : 'hidden'}`}>
             {link.submenu && link.sublinks.map((slink) => (
               <div className="" key={slink.id}>
-                <h1 className="py-3 pl-7 lg:pr-0 pr-5" key={slink.url}><Link href={slink.url}>{slink.title}</Link></h1>
+                <h1 className="py-3 pl-7 lg:pr-0 pr-5 text-white" key={slink.url}><Link href={slink.url}>{slink.title}</Link></h1>
               </div>
             ))}
           </div>

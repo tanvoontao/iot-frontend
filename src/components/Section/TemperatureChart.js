@@ -61,7 +61,7 @@ function TemperatureChart() {
   });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Something wrong</p>;
+  // if (error) return <p>Something wrong</p>;
 
   const groupedData = response.reduce((acc, item) => {
     const minute = moment(item.timestamp).startOf('minute').format('YYYY-MM-DD HH:mm');

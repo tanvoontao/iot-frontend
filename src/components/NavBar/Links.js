@@ -2,8 +2,18 @@
 /* eslint-disable import/prefer-default-export */
 export const links = [
   {
-    id: 1,
-    title: 'Home',
+    id: 'home',
+    title: '🏠 Home',
     url: '/',
+  },
+  {
+    id: 'settings',
+    title: '⚙️ Settings',
+    url: '/settings',
+  },
+  {
+    id: 'access-logs',
+    title: '📜 Access Logs',
+    url: '/access-logs',
   },
 ];

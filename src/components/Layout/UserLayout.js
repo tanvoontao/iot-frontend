@@ -7,8 +7,10 @@ function UserLayout({ children }) {
   return (
     <>
       <NavBar />
-      <DarkModeBtn />
-      {children}
+      <Container maxWidth="lg">
+        <DarkModeBtn />
+        {children}
+      </Container>
       <Footer />
     </>
   );

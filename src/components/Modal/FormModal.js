@@ -12,6 +12,8 @@ import { forwardRef } from 'react';
 // import LeadershipForm from '@/components/Form/LeadershipForm';
 // import ServiceForm from '@/components/Form/ServiceForm';
 // import PortfolioForm from '@/components/Form/PortfolioForm';
+import TempSettingForm from '@/components/Form/TempSettingForm';
+import SystemSettingForm from '@/components/Form/SystemSettingForm';
 
 import { setModal } from '@/redux/modal/action';
 
@@ -22,8 +24,8 @@ const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {.
 // });
 
 const components = {
-  // LeadershipForm,
-  // ServiceForm,
+  TempSettingForm,
+  SystemSettingForm,
   // PortfolioForm,
 };
 
@@ -61,7 +63,7 @@ function FormModal() {
             </Toolbar>
           </AppBar>
 
-          <Form data={modal.data} />
+          <Form defaultValues={modal.data} />
 
         </Dialog>
       )
