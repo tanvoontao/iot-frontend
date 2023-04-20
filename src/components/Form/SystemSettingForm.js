@@ -1,12 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import {
   Container,
   TextField,
   Typography,
   Grid,
-  ButtonGroup,
   Button,
   Box,
   FormControl,
@@ -17,6 +15,7 @@ import {
 } from '@mui/material';
 
 import axios from '@/config/apis';
+import useAxiosFunc from '@/hooks/useAxiosFunc';
 import { setAlert } from '@/redux/alert/action';
 import { setModal } from '@/redux/modal/action';
 
@@ -26,17 +25,48 @@ function SystemSettingForm(props) {
   const {
     register, handleSubmit, formState: { errors }, reset,
   } = useForm();
+  const {
+    response, error, loading, axiosFetch,
+  } = useAxiosFunc();
 
-  const editData = async (formValues) => { };
+  const editData = async (formValues) => {
+    const formData = {
+      id: defaultValues.id,
+      age: formValues.age,
+      fall_detect_threshold: formValues.fall_detect_threshold,
+      auto: formValues.auto,
+    };
+
+    await axiosFetch({
+      axios,
+      method: 'PUT',
+      url: '/api/system-settings',
+      requestConfig: {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: formData,
+      },
+    });
+  };
 
   const onSubmit = async (formValues) => {
-    console.log(formValues);
     if (defaultValues) {
       await editData(formValues);
     } else {
       // await createNew(formValues);
     }
   };
+
+  useEffect(() => {
+    if (!loading && !error && response) {
+      const message = `You just ${defaultValues ? 'updated' : 'added'}  system settings. Click the refresh button. `;
+      setModal({ type: null, data: null });
+      setAlert({ show: true, message, severity: 'success' });
+    } else if (!loading && error) {
+      setAlert({ show: true, message: 'Something wrong', severity: 'error' });
+    }
+  }, [response, error, loading]);
 
   return (
     <form

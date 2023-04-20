@@ -20,7 +20,7 @@ function TempSettingTable() {
   } = useAxios({
     axios,
     method: 'GET',
-    url: '/services/table?page=1&limit=10',
+    url: '/api/temp-settings',
     requestConfig: {
       headers: {
         'Content-Type': 'application/json',
@@ -28,18 +28,8 @@ function TempSettingTable() {
     },
   });
 
-  const response2 = [{
-    hypothermia: 35,
-    mild_hypothermia: 36.5,
-    normal: 37.5,
-    mild_fever: 38,
-    fever: 40,
-    hyperpyrexia: 40,
-  }];
-
   const handleEdit = (rowId) => {
-    // const selectedService = response2.data[rowId];
-    const tempSettings = response2[rowId];
+    const tempSettings = response;
     setModal({ type: 'TempSettingForm', data: tempSettings });
   };
 
@@ -152,14 +142,18 @@ function TempSettingTable() {
   };
 
   // eslint-disable-next-line arrow-body-style
-  const dataRows = response2;
-  //   (!loading && !error && response.data) ? (response.data).map((service) => {
-  //   return {
-  //     name: service.name,
-  //     image: service.image,
-  //     actions: '',
-  //   };
-  // }) : [];
+  const dataRows = (!loading && !error && response) ? [response].map((setting) => {
+    return {
+      hypothermia: setting.hypothermia,
+      mild_hypothermia: setting.mild_hypothermia,
+      normal: setting.normal,
+      mild_fever: setting.mild_fever,
+      fever: setting.fever,
+      hyperpyrexia: setting.hyperpyrexia,
+      actions: '',
+    };
+  })
+    : [];
 
   if (loading) { return <p>🌀 Loading</p>; }
 

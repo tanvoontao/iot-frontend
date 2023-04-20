@@ -21,7 +21,7 @@ function AccessLogsTable() {
   } = useAxios({
     axios,
     method: 'GET',
-    url: '/services/table?page=1&limit=10',
+    url: '/api/data/table?page=1&limit=10',
     requestConfig: {
       headers: {
         'Content-Type': 'application/json',
@@ -29,27 +29,7 @@ function AccessLogsTable() {
     },
   });
 
-  const response2 = {
-    total: 1,
-    data: [
-      {
-        timestamp: '2023-04-19T10:30:00Z',
-        temperature: 36.7,
-        heart_rate: 75,
-        fall_detect: 1,
-        motion_detect: 0,
-        x: 120,
-        y: 120,
-        z: 120,
-      },
-    ],
-  };
-
-  const handleEdit = (rowId) => {
-    // const selectedService = response2.data[rowId];
-    const tempSettings = response2.data[rowId];
-    setModal({ type: 'SystemSettingForm', data: tempSettings });
-  };
+  console.log(response);
 
   const columns = [
     {
@@ -150,27 +130,32 @@ function AccessLogsTable() {
     onTableChange: (action, tableState) => {
       const { page, rowsPerPage } = tableState;
       if (action === 'changePage' || action === 'changeRowsPerPage') {
-        refetch(`/services/table?page=${page + 1}&limit=${rowsPerPage}`);
+        refetch(`/api/data/table?page=${page + 1}&limit=${rowsPerPage}`);
       } else if (action === 'search') {
         const keyword = tableState.searchText;
         if (keyword) {
-          refetch(`/services/table?page=${page + 1}&limit=${rowsPerPage}&search=${encodeURIComponent(keyword)}`);
+          refetch(`/api/data/table?page=${page + 1}&limit=${rowsPerPage}&search=${encodeURIComponent(keyword)}`);
         } else {
-          refetch(`/services/table?page=${page + 1}&limit=${rowsPerPage}`);
+          refetch(`/api/data/table?page=${page + 1}&limit=${rowsPerPage}`);
         }
       }
     },
   };
 
   // eslint-disable-next-line arrow-body-style
-  const dataRows = response2.data;
-  //   (!loading && !error && response.data) ? (response.data).map((service) => {
-  //   return {
-  //     name: service.name,
-  //     image: service.image,
-  //     actions: '',
-  //   };
-  // }) : [];
+  const dataRows = (!loading && !error && response.data) ? (response.data).map((d) => {
+    return {
+      timestamp: d.timestamp,
+      temperature: d.temperature,
+      heart_rate: d.heart_rate,
+      fall_detect: d.fall_detect,
+      motion_detect: d.motion_detect,
+      x: d.x,
+      y: d.y,
+      z: d.z,
+      actions: '',
+    };
+  }) : [];
 
   if (loading) { return <p>🌀 Loading</p>; }
 

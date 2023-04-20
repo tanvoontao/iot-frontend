@@ -21,7 +21,7 @@ function SystemSettingTable() {
   } = useAxios({
     axios,
     method: 'GET',
-    url: '/services/table?page=1&limit=10',
+    url: '/api/system-settings',
     requestConfig: {
       headers: {
         'Content-Type': 'application/json',
@@ -29,16 +29,8 @@ function SystemSettingTable() {
     },
   });
 
-  const response2 = [{
-    age: 65,
-    fall_detect_threshold: 130,
-    auto: 1,
-  }];
-
   const handleEdit = (rowId) => {
-    // const selectedService = response2.data[rowId];
-    const tempSettings = response2[rowId];
-    setModal({ type: 'SystemSettingForm', data: tempSettings });
+    setModal({ type: 'SystemSettingForm', data: response });
   };
 
   const columns = [
@@ -129,7 +121,15 @@ function SystemSettingTable() {
   };
 
   // eslint-disable-next-line arrow-body-style
-  const dataRows = response2;
+  const dataRows = (!loading && !error && response) ? [response].map((s) => {
+    return {
+      age: s.age,
+      fall_detect_threshold: s.fall_detect_threshold,
+      auto: s.auto,
+      actions: '',
+    };
+  })
+    : [];
   //   (!loading && !error && response.data) ? (response.data).map((service) => {
   //   return {
   //     name: service.name,

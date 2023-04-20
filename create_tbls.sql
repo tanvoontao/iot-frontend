@@ -9,12 +9,12 @@ CREATE TABLE temperature_settings (
 );
 
 INSERT INTO temperature_settings (
-  hypothermia_threshold,
-  mild_hypothermia_threshold,
-  normal_high_threshold,
-  mild_fever_threshold,
-  fever_threshold,
-  hyperpyrexia_threshold
+  hypothermia,
+  mild_hypothermia,
+  normal_high,
+  mild_fever,
+  fever,
+  hyperpyrexia
 ) VALUES (
   35,
   36.5,
